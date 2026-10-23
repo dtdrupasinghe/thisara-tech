@@ -1,0 +1,32 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, readingTime } from '../utils';
+import { DEFAULT_COVER } from '../consts';
+
+interface Props { post: CollectionEntry<'blog'> }
+const { post } = Astro.props;
+const { title, description, pubDate, tags, cover, coverAlt } = post.data;
+const search = [title, description, ...tags].join(' ').toLowerCase();
+---
+
+<li class="card" data-search={search}>
+  <a class="card-link" href={`/blog/${post.id}/`}>
+    <div class="card-media">
+      <img src={cover ?? DEFAULT_COVER} alt={cover ? coverAlt ?? '' : ''} width="800" height="450" loading="lazy" decoding="async" />
+    </div>
+    <div class="card-body">
+      <div class="meta">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime(post.body)}</span>
+      </div>
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </div>
+  </a>
+  {tags.length > 0 && (
+    <ul class="tags card-tags" aria-label="Tags">
+      {tags.map((t) => <li><a class="tag" href={`/tags/${t}/`}>#{t}</a></li>)}
+    </ul>
+  )}
+</li>

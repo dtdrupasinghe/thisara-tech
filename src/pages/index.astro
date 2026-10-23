@@ -1,0 +1,123 @@
+---
+import Base from '../layouts/Base.astro';
+import PostCard from '../components/PostCard.astro';
+import { Image } from 'astro:assets';
+import { getPosts } from '../utils';
+import heroPhoto from '../assets/hero-photo.webp';
+import { CATEGORIES, CONTACT_EMAIL, DEFAULT_COVER, ROLES, SOCIAL_LINKS } from '../consts';
+
+const posts = await getPosts();
+const categories = CATEGORIES.map((c) => ({
+  ...c,
+  count: posts.filter((p) => p.data.tags.includes(c.tag)).length,
+}));
+// Each letter gets its own delay (--i) so the name types in one after another.
+let letter = 0;
+const nameWords = 'Thisara Rupasinghe'.split(' ').map((w) => [...w].map((ch) => ({ ch, i: letter++ })));
+---
+
+<Base>
+  <section class="hero hero-home" aria-labelledby="hero-title">
+    <img class="hero-bg" src={DEFAULT_COVER} alt="" />
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-text">
+        <h1 id="hero-title" class="hero-title" aria-label="Hi, I'm Thisara Rupasinghe">
+          <span class="hi" aria-hidden="true">Hi, I'm</span>
+          <span class="hl name" aria-hidden="true">
+            {nameWords.map((word, w) => (
+              <>{w > 0 && ' '}<span class="word">{word.map((l) => <span class="ch" style={`--i:${l.i}`}>{l.ch}</span>)}</span></>
+            ))}
+          </span>
+        </h1>
+        <p class="hero-role">
+          <span class="sr-only">{ROLES.join(', ')}</span>
+          <span class="role-text" aria-hidden="true" data-roles={JSON.stringify(ROLES)}>{ROLES[0]}</span><span class="role-cursor" aria-hidden="true"></span>
+        </p>
+        <p class="hero-desc">Based in Sri Lanka. I write about tech updates, Azure, cloud cost and free tools for students and engineers.</p>
+        <div class="hero-actions">
+          <a class="btn" href="/blog/">Read the posts</a>
+          <a class="btn btn-ghost" href="/about/">About me</a>
+        </div>
+      </div>
+      <div class="hero-portrait">
+        <div class="portrait-glow" aria-hidden="true"></div>
+        <Image class="portrait-ghost ghost-left" src={heroPhoto} alt="" aria-hidden="true" widths={[340, 480, 680, 900]} sizes="(max-width: 720px) 86vw, 520px" loading="eager" />
+        <Image class="portrait-ghost ghost-right" src={heroPhoto} alt="" aria-hidden="true" widths={[340, 480, 680, 900]} sizes="(max-width: 720px) 86vw, 520px" loading="eager" />
+        <Image
+          class="portrait-img"
+          src={heroPhoto}
+          alt="Thisara Rupasinghe smiling, wearing a dark suit and blue tie"
+          widths={[340, 480, 680, 900]}
+          sizes="(max-width: 720px) 86vw, 520px"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="wrap" aria-labelledby="latest">
+      <div class="section-head">
+        <h2 id="latest">Latest posts</h2>
+        <a href="/blog/">All posts →</a>
+      </div>
+      <ul class="card-grid">
+        {posts.slice(0, 6).map((post) => <PostCard post={post} />)}
+      </ul>
+    </section>
+  )}
+
+  <section class="wrap" aria-labelledby="categories">
+    <div class="section-head">
+      <h2 id="categories">Categories</h2>
+    </div>
+    <ul class="cat-grid">
+      {categories.map((c) => (
+        <li>
+          <a class="cat-card" href={`/tags/${c.tag}/`}>
+            <span class="cat-name">{c.label}</span>
+            <span class="cat-desc">{c.desc}</span>
+            <span class="cat-count">{c.count === 0 ? 'Coming soon' : `${c.count} ${c.count === 1 ? 'post' : 'posts'}`}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="wrap" aria-labelledby="contact">
+    <div class="contact-card">
+      <div>
+        <h2 id="contact">Get in touch</h2>
+        <p>Have a question about a post, an idea for a topic, or want me to speak at your event? Reach out on any of these.</p>
+      </div>
+      <ul class="contact-links">
+        {CONTACT_EMAIL && <li><a class="btn" href={`mailto:${CONTACT_EMAIL}`}>Email me</a></li>}
+        {SOCIAL_LINKS.map((s) => <li><a class="btn btn-ghost" href={s.href} rel="me noopener">{s.label}</a></li>)}
+        <li><a class="btn btn-ghost" href="/about/">About me</a></li>
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Types each role, holds it, deletes it, then moves to the next. Without JS the first role stays.
+  const el = document.querySelector<HTMLElement>('.role-text');
+  const roles: string[] = el ? JSON.parse(el.dataset.roles ?? '[]') : [];
+  if (el && roles.length > 1 && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let r = 0;
+    let n = roles[0].length;
+    let deleting = true;
+    const tick = () => {
+      const word = roles[r];
+      n += deleting ? -1 : 1;
+      el.textContent = word.slice(0, n);
+      let wait = deleting ? 35 : 75;
+      if (!deleting && n === word.length) { deleting = true; wait = 1800; }
+      else if (deleting && n === 0) { deleting = false; r = (r + 1) % roles.length; wait = 300; }
+      setTimeout(tick, wait);
+    };
+    setTimeout(tick, 2600);
+  }
+</script>

@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { SOCIAL_LINKS } from '../consts';
+---
+
+<Base title="About" description="About Thisara - cloud support engineer, Azure and FinOps.">
+  <article class="narrow">
+    <header class="post-head">
+      <h1>About me</h1>
+      <p class="lead">I'm Thisara, a cloud support engineer from Sri Lanka working with Microsoft Azure.</p>
+    </header>
+    <div class="prose">
+      <p>
+        I write here about the things I learn on the job and on my own: running workloads on Azure,
+        keeping cloud bills under control, and free tools that help students and junior engineers get started.
+      </p>
+      <p>
+        I'm also active in the Sri Lankan cloud and FinOps community as a speaker and content creator.
+        If something here helps you, or you spot a mistake, I'd love to hear from you.
+      </p>
+    </div>
+    <div class="about-card">
+      <h2 style="margin:0 0 12px;font-size:22px">Certifications</h2>
+      <ul>
+        <li>Microsoft Certified: Azure Administrator Associate (AZ-104)</li>
+        <li>FinOps Certified</li>
+      </ul>
+    </div>
+    <div class="about-card">
+      <h2 style="margin:0 0 12px;font-size:22px">Find me</h2>
+      <ul>
+        {SOCIAL_LINKS.map((s) => <li><a href={s.href} rel="me noopener">{s.label}</a></li>)}
+      </ul>
+    </div>
+  </article>
+</Base>

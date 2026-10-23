@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts } from '../../utils';
+import { CATEGORIES } from '../../consts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  // Header categories always get a page, even before they have posts.
+  const tags = [...new Set([...CATEGORIES.map((c) => c.tag), ...posts.flatMap((p) => p.data.tags)])];
+  return tags.map((tag) => ({
+    params: { tag },
+    props: { posts: posts.filter((p) => p.data.tags.includes(tag)) },
+  }));
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+const label = CATEGORIES.find((c) => c.tag === tag)?.label ?? `#${tag}`;
+---
+
+<Base title={label} description={`Posts about ${label}`}>
+  <section class="wrap">
+    <header class="page-head">
+      <h1>{label}</h1>
+      <p class="lead">{posts.length} {posts.length === 1 ? 'post' : 'posts'}</p>
+    </header>
+    {posts.length > 0 ? (
+      <ul class="card-grid">
+        {posts.map((post) => <PostCard post={post} />)}
+      </ul>
+    ) : (
+      <p class="empty">No posts here yet. <a href="/blog/">Browse all posts</a>.</p>
+    )}
+  </section>
+</Base>

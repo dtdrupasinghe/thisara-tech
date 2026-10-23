@@ -1,0 +1,16 @@
+---
+import { AUTHOR, SOCIAL_LINKS } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© {year} {AUTHOR}</span>
+    <ul>
+      {SOCIAL_LINKS.map((s) => (
+        <li><a href={s.href} rel="me noopener">{s.label}</a></li>
+      ))}
+      <li><a href="/rss.xml">RSS</a></li>
+    </ul>
+  </div>
+</footer>

@@ -1,0 +1,49 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { formatDate, getPosts, readingTime } from '../../utils';
+import { DEFAULT_COVER } from '../../consts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, cover } = post.data;
+const { Content } = await render(post);
+---
+
+<Base title={title} description={description} type="article">
+  <header class="post-hero">
+    <img class="hero-bg" src={cover ?? DEFAULT_COVER} alt="" />
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="narrow post-hero-inner">
+      <div class="meta">
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{readingTime(post.body)}</span>
+        {updatedDate && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>Updated {formatDate(updatedDate)}</span>
+          </>
+        )}
+      </div>
+      <h1>{title}</h1>
+      <p class="lead">{description}</p>
+      {tags.length > 0 && (
+        <ul class="tags" aria-label="Tags">
+          {tags.map((t) => <li><a class="tag" href={`/tags/${t}/`}>#{t}</a></li>)}
+        </ul>
+      )}
+    </div>
+  </header>
+
+  <article class="narrow post-body">
+    <div class="prose">
+      <Content />
+    </div>
+    <a class="back" href="/blog/">← All posts</a>
+  </article>
+</Base>

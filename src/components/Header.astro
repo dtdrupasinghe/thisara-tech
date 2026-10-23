@@ -1,0 +1,31 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/blog/', label: 'Posts' },
+  { href: '/about/', label: 'About' },
+];
+const path = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="/" aria-label="thisara.tech home">
+      <span class="brand-mark" aria-hidden="true">T</span>
+      <span>thisara<span class="tld">.tech</span></span>
+    </a>
+
+    <form class="search" action="/blog/" method="get" role="search">
+      <label for="q" class="sr-only">Search posts</label>
+      <input id="q" name="q" type="search" placeholder="Search topics" autocomplete="off" />
+      <button type="submit" aria-label="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg>
+      </button>
+    </form>
+
+    <nav class="nav" aria-label="Main">
+      {links.map((l) => (
+        <a href={l.href} aria-current={(l.href === '/' ? path === '/' : path.startsWith(l.href)) ? 'page' : undefined}>{l.label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
