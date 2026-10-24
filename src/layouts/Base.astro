@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { OG_IMAGE, OG_IMAGE_ALT, OG_SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { AUTHOR, HOME_TITLE, OG_IMAGE, OG_IMAGE_ALT, OG_SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 interface Props {
   title?: string;
@@ -11,12 +11,11 @@ interface Props {
   /** Social preview image, e.g. a post cover ('/images/x.jpg'). Defaults to OG_IMAGE. */
   image?: string;
   imageAlt?: string;
-  /** og:title when it should differ from the page title (used on the home page). */
-  ogTitle?: string;
 }
 
-const { title, description = SITE_DESCRIPTION, type = 'website', image, imageAlt, ogTitle } = Astro.props;
-const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} - ${SITE_DESCRIPTION}`;
+const { title, description = SITE_DESCRIPTION, type = 'website', image, imageAlt } = Astro.props;
+// Pages without a title (the home page) get HOME_TITLE; og:title always matches the tab title.
+const pageTitle = title ? `${title} | ${AUTHOR}` : HOME_TITLE;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL(image ?? OG_IMAGE, Astro.site);
 const ogImageAlt = image ? imageAlt : OG_IMAGE_ALT;
@@ -36,7 +35,7 @@ const ogImageAlt = image ? imageAlt : OG_IMAGE_ALT;
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={OG_SITE_NAME} />
-    <meta property="og:title" content={ogTitle ?? title ?? SITE_TITLE} />
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />

@@ -6,6 +6,8 @@ export const SITE_TAGLINE = 'Cloud, Azure & FinOps - notes from Sri Lanka';
 export const SITE_DESCRIPTION =
   'Practical write-ups on Azure, cloud cost (FinOps), DevOps and free tools for students and engineers in Sri Lanka.';
 export const AUTHOR = 'Thisara Rupasinghe';
+// Browser tab title (and og:title) of the home page. Other pages use "<Page title> | AUTHOR".
+export const HOME_TITLE = 'Thisara Rupasinghe | Cloud, Azure & Tech Updates';
 
 // Social previews (Open Graph). Pages without their own image, like posts without a cover, use OG_IMAGE.
 export const OG_SITE_NAME = 'thisara.tech';

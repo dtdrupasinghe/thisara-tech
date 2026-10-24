@@ -225,9 +225,11 @@ img { max-width: 100%; height: auto; }
   content: ""; position: absolute; inset: 15%; border-radius: 50%;
   border: 2px solid color-mix(in srgb, var(--accent-strong) 45%, transparent);
 }
+/* --bw (0 colour, 1 black and white) is animated by hero-bw below; registered so it changes smoothly */
+@property --bw { syntax: '<number>'; inherits: false; initial-value: 0; }
 .portrait-img {
   position: relative; display: block; width: 100%; height: auto; border-radius: 0;
-  filter: contrast(1.04) saturate(1.06) drop-shadow(0 24px 40px rgba(0, 0, 0, 0.5));
+  filter: contrast(1.04) saturate(1.06) grayscale(var(--bw)) drop-shadow(0 24px 40px rgba(0, 0, 0, 0.5));
   -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
 }
@@ -236,7 +238,7 @@ img { max-width: 100%; height: auto; }
 .portrait-ghost {
   position: absolute; left: 0; bottom: 0; width: 100%; height: auto; border-radius: 0;
   transform-origin: 50% 100%; opacity: 0.32;
-  filter: grayscale(0.5) brightness(0.55) blur(1.5px);
+  filter: grayscale(calc(0.5 + var(--bw) / 2)) brightness(0.55) blur(1.5px);
   -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent 95%);
   mask-image: linear-gradient(to bottom, #000 60%, transparent 95%);
 }
@@ -251,9 +253,18 @@ img { max-width: 100%; height: auto; }
   .hero-home .hero-desc { animation: rise 0.7s 1.35s both; }
   .hero-home .hero-actions { animation: rise 0.7s 1.5s both; }
   .portrait-glow { animation: glow-in 1.2s 0.2s both, glow-pulse 6s 1.4s ease-in-out infinite; }
-  .portrait-img { animation: portrait-in 0.9s 0.35s both cubic-bezier(0.2, 0.7, 0.2, 1); }
-  .ghost-left { animation: ghost-left 1s 0.9s both cubic-bezier(0.2, 0.7, 0.2, 1); }
-  .ghost-right { animation: ghost-right 1s 0.9s both cubic-bezier(0.2, 0.7, 0.2, 1); }
+  .portrait-img { animation: portrait-in 0.9s 0.35s both cubic-bezier(0.2, 0.7, 0.2, 1), hero-bw 2s linear infinite; }
+  .ghost-left { animation: ghost-left 1s 0.9s both cubic-bezier(0.2, 0.7, 0.2, 1), hero-bw 2s linear infinite; }
+  .ghost-right { animation: ghost-right 1s 0.9s both cubic-bezier(0.2, 0.7, 0.2, 1), hero-bw 2s linear infinite; }
+}
+/* Home photo: same as the About photo, colour and black and white every second with a quick flicker at each switch. */
+@keyframes hero-bw {
+  0%, 3% { --bw: 1; }
+  5%, 44% { --bw: 0; }
+  46%, 49% { --bw: 1; }
+  51%, 54% { --bw: 0; }
+  56%, 94% { --bw: 1; }
+  96%, 100% { --bw: 0; }
 }
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes letter { from { opacity: 0; transform: translateY(0.4em) rotate(4deg); } to { opacity: 1; transform: none; } }
