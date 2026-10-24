@@ -44,3 +44,12 @@ const ALL_SOCIAL_LINKS = [
   { label: 'Facebook', href: 'https://www.facebook.com/thisara.devops', icon: 'facebook' },
 ];
 export const SOCIAL_LINKS = ALL_SOCIAL_LINKS.filter((link) => filled(link.href));
+
+// Newsletter on beehiiv. Until subscribeUrl or embedSrc is filled in, it stays off: no signup cards, no footer line,
+// no "Newsletter" nav link and no /newsletter/ page. With embedSrc set, the beehiiv form shows instead of the button.
+export const NEWSLETTER = {
+  name: "Thisara's Tech Updates",
+  subscribeUrl: '', // beehiiv subscribe page URL, e.g. https://xxxx.beehiiv.com/subscribe
+  embedSrc: '', // beehiiv embed iframe src (optional)
+};
+export const NEWSLETTER_ON = Boolean(filled(NEWSLETTER.subscribeUrl) || filled(NEWSLETTER.embedSrc));

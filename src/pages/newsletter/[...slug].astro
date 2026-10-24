@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
+import { NEWSLETTER, NEWSLETTER_ON } from '../../consts';
+
+// /newsletter/ is only built once NEWSLETTER in consts.ts has a beehiiv link.
+export function getStaticPaths() {
+  return NEWSLETTER_ON ? [{ params: { slug: undefined } }] : [];
+}
+
+const perks = ['Free certification vouchers', 'Student perks and free tools', 'Azure and FinOps guides', 'Tech updates worth knowing'];
+---
+
+<Base
+  title="Newsletter"
+  description={`Subscribe to ${NEWSLETTER.name}: free certification vouchers, student perks, Azure and FinOps guides and tech updates by email.`}
+>
+  <article class="narrow">
+    <header class="post-head">
+      <h1>Newsletter</h1>
+      <p class="lead">{NEWSLETTER.name} is my email newsletter for students and engineers. Here's what you get:</p>
+    </header>
+    <ul class="nl-perks">
+      {perks.map((perk) => (
+        <li>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"></path></svg>
+          {perk}
+        </li>
+      ))}
+    </ul>
+    <NewsletterSignup />
+  </article>
+</Base>

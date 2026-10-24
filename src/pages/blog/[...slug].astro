@@ -1,6 +1,7 @@
 ---
 import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
 import { formatDate, getPosts, readingTime } from '../../utils';
 import { DEFAULT_COVER } from '../../consts';
 
@@ -49,6 +50,7 @@ const { Content } = await render(post);
     <div class="prose">
       <Content />
     </div>
+    <NewsletterSignup />
     <a class="back" href="/blog/">← All posts</a>
   </article>
 </Base>

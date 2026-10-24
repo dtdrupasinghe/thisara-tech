@@ -1,0 +1,44 @@
+---
+// Newsletter signup (beehiiv). Renders nothing until NEWSLETTER in consts.ts has a subscribe link or an embed.
+// "full" is the card on the home page, posts and /newsletter/; "compact" is the one-line footer version.
+import { NEWSLETTER, NEWSLETTER_ON } from '../consts';
+import { filled } from '../placeholders';
+
+interface Props {
+  variant?: 'full' | 'compact';
+  class?: string;
+}
+
+const { variant = 'full', class: extra } = Astro.props;
+const subscribeUrl = filled(NEWSLETTER.subscribeUrl);
+const embedSrc = filled(NEWSLETTER.embedSrc);
+// beehiiv's slim embed (email field and button only) is 52px tall, the standard one 320px.
+const embedHeight = embedSrc?.includes('slim=true') ? 52 : 320;
+---
+
+{NEWSLETTER_ON && variant === 'compact' && (
+  <p class:list={['nl-compact', extra]}>Get updates by email <a href="/newsletter/">Subscribe</a></p>
+)}
+
+{NEWSLETTER_ON && variant === 'full' && (
+  <section class:list={['nl-card', extra]} aria-labelledby="newsletter-title">
+    <span class="nl-icon">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+        <path d="m3 7 9 6 9-6"></path>
+      </svg>
+    </span>
+    <div class="nl-body">
+      <h2 id="newsletter-title">Get free vouchers and tech updates in your inbox</h2>
+      <p>New free certifications, student perks and Azure tips. No spam, unsubscribe anytime.</p>
+      {embedSrc && (
+        <iframe class="nl-embed" src={embedSrc} title={`Subscribe to ${NEWSLETTER.name}`} height={embedHeight} loading="lazy"></iframe>
+      )}
+    </div>
+    {!embedSrc && (
+      <a class="btn" href={subscribeUrl} target="_blank" rel="noopener">
+        Subscribe <span class="sr-only">(opens in a new tab)</span>
+      </a>
+    )}
+  </section>
+)}

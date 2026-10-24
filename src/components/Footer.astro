@@ -1,4 +1,5 @@
 ---
+import NewsletterSignup from './NewsletterSignup.astro';
 import SocialIcons from './SocialIcons.astro';
 import { AUTHOR } from '../consts';
 const year = new Date().getFullYear();
@@ -7,6 +8,7 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="wrap">
     <span>© {year} {AUTHOR}</span>
+    <NewsletterSignup variant="compact" />
     <SocialIcons />
   </div>
 </footer>

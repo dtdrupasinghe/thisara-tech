@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
 import PostCard from '../components/PostCard.astro';
 import Stats from '../components/Stats.astro';
 import VideoCard from '../components/VideoCard.astro';
@@ -96,6 +97,8 @@ const nameWords = 'Thisara Rupasinghe'.split(' ').map((w) => [...w].map((ch) => 
       </ul>
     </section>
   )}
+
+  <NewsletterSignup class="wrap" />
 
   {categories.length > 0 && (
     <section class="wrap" aria-labelledby="categories">
