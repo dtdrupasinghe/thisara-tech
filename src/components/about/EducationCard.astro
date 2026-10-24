@@ -3,6 +3,7 @@ import Icon from './Icon.astro';
 import Pill from './Pill.astro';
 import type { Education } from '../../data/education';
 import { dateRange, filled, filledList } from '../../placeholders';
+import { publicImage } from '../../utils';
 
 interface Props {
   item: Education;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const { item, index = 0 } = Astro.props;
+const logo = publicImage(item.logo);
 const status = filled(item.status);
 const place = [filled(item.school), filled(item.location)].filter(Boolean).join(' · ');
 const dates = dateRange(item.start, item.end);
@@ -17,7 +19,11 @@ const research = filledList(item.research);
 ---
 
 <article class="ab-card ab-edu" style={`--i: ${index}`}>
-  <div class="ab-edu-icon" aria-hidden="true"><Icon name="cap" size={44} /></div>
+  {logo ? (
+    <img class="ab-edu-logo" src={logo} alt={`${item.school} logo`} width="180" height="96" loading="lazy" decoding="async" />
+  ) : (
+    <div class="ab-edu-icon" aria-hidden="true"><Icon name="cap" size={44} /></div>
+  )}
   <div>
     <div class="ab-title-row">
       <h3>{item.degree}</h3>

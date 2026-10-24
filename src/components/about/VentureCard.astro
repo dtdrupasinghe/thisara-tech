@@ -3,6 +3,7 @@ import Logo from './Logo.astro';
 import Pill from './Pill.astro';
 import type { Venture } from '../../data/ventures';
 import { dateRange, filled, filledList } from '../../placeholders';
+import { publicImage } from '../../utils';
 
 interface Props {
   item: Venture;
@@ -10,6 +11,8 @@ interface Props {
 }
 
 const { item, index = 0 } = Astro.props;
+// The logo already shows the name, so the heading is only for screen readers when the logo is there.
+const hasLogo = Boolean(publicImage(item.logo));
 const tagline = filled(item.tagline);
 const dates = dateRange(item.start, item.end);
 const bullets = filledList(item.bullets);
@@ -19,9 +22,9 @@ const url = filled(item.url);
 
 <article class="ab-card ab-venture" style={`--i: ${index}`}>
   <div class="ab-venture-brand">
-    <Logo src={item.logo} alt={`${item.name} logo`} initials={item.initials} size={64} />
+    <Logo src={item.logo} alt={`${item.name} logo`} initials={item.initials} size={176} />
     <div>
-      <h3 class="ab-venture-name">{item.name}</h3>
+      <h3 class:list={['ab-venture-name', { 'sr-only': hasLogo }]}>{item.name}</h3>
       {tagline && <p class="ab-muted">{tagline}</p>}
     </div>
     <p class="ab-venture-role">

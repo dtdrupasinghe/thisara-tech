@@ -8,7 +8,7 @@ import ExperienceTimeline from '../components/about/ExperienceTimeline.astro';
 import VentureCard from '../components/about/VentureCard.astro';
 import TalkCard from '../components/about/TalkCard.astro';
 import VolunteerCard from '../components/about/VolunteerCard.astro';
-import heroPhoto from '../assets/hero-photo.webp';
+import aboutPhoto from '../assets/about.jpg';
 import { education } from '../data/education';
 import { experience } from '../data/experience';
 import { ventures } from '../data/ventures';
@@ -24,8 +24,9 @@ import { volunteering } from '../data/volunteering';
     <section class="ab-wrap ab-intro" aria-labelledby="about-title">
       <div class="ab-photo ab-rise">
         <Image
-          src={heroPhoto}
+          src={aboutPhoto}
           alt="Thisara Rupasinghe"
+          width={720}
           widths={[360, 540, 720]}
           sizes="(max-width: 760px) 90vw, 420px"
           loading="eager"

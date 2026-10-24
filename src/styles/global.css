@@ -489,8 +489,9 @@ img { max-width: 100%; height: auto; }
 .ab-logo { flex: none; display: grid; place-items: center; object-fit: contain; }
 .ab-logo-64 { width: 64px; height: 64px; border-radius: 16px; }
 .ab-logo-48 { width: 48px; height: 48px; border-radius: 12px; }
+.ab-logo-176 { width: 176px; height: 176px; border-radius: 28px; }
 .ab-initials { font-weight: 900; font-size: 13px; letter-spacing: 0.02em; color: var(--c); background: color-mix(in srgb, var(--c) 14%, transparent); }
-.ab-venture .ab-initials { font-size: 22px; color: var(--ink); background: var(--venture); }
+.ab-venture .ab-initials { font-size: 56px; color: var(--ink); background: var(--venture); }
 
 /* intro */
 .ab-intro { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 48px; align-items: center; }
@@ -508,6 +509,10 @@ img { max-width: 100%; height: auto; }
 .ab-edu-icon {
   flex: none; width: 96px; height: 96px; border-radius: 24px; display: grid; place-items: center;
   color: var(--edu); background: color-mix(in srgb, var(--edu) 14%, transparent);
+}
+.ab-edu-logo {
+  flex: none; width: 180px; height: 96px; padding: 12px 16px; border-radius: 20px;
+  background: var(--on-ink); object-fit: contain;
 }
 .ab-title-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
 
