@@ -205,6 +205,9 @@ img { max-width: 100%; height: auto; }
     color-mix(in srgb, var(--accent-strong) 55%, transparent) 0%,
     color-mix(in srgb, var(--accent-strong) 18%, transparent) 45%,
     transparent 70%);
+  /* fade the glow and ring out at the bottom, together with the photo */
+  -webkit-mask-image: linear-gradient(to bottom, #000 45%, transparent 78%);
+  mask-image: linear-gradient(to bottom, #000 45%, transparent 78%);
 }
 .portrait-glow::after {
   content: ""; position: absolute; inset: 15%; border-radius: 50%;
