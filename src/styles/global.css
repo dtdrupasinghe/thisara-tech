@@ -649,8 +649,18 @@ img { max-width: 100%; height: auto; }
 
 @media (prefers-reduced-motion: no-preference) {
   .ab-card, .ab-rise { animation: ab-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards; animation-delay: calc(var(--i, 0) * 80ms); }
+  .ab-photo img { animation: ab-flicker 10s linear infinite; }
 }
 @keyframes ab-in { from { opacity: 0; transform: translateY(16px); } }
+/* About photo: flickers to black and white, stays there for about 3s, then fades back to colour.
+   The flicker changes stay under three per second. */
+@keyframes ab-flicker {
+  0%, 40% { filter: grayscale(0); }
+  42%, 46% { filter: grayscale(1); }
+  48%, 52% { filter: grayscale(0); }
+  54%, 85% { filter: grayscale(1); }
+  93%, 100% { filter: grayscale(0); }
+}
 
 @media (max-width: 760px) {
   .about-page { padding-top: 24px; }
