@@ -19,8 +19,9 @@ export const CATEGORIES = [
 // Roles typed one after another under the name on the home page.
 export const ROLES = ['Cloud Support Engineer', 'Content Creator', 'FinOps Practitioner', 'Tech Speaker'];
 
-// Shown as an "Email me" button in the home page contact section. Leave empty to hide it.
-export const CONTACT_EMAIL = '';
+// Access key for the /contact/ form (free key from web3forms.com, sent to the email you sign up with).
+// It's safe to publish; it only lets people send messages to you. Leave empty and the form shows a notice instead.
+export const WEB3FORMS_KEY = '54b4f6a2-afa1-4009-9838-7cc93914aef7';
 
 // Shown in the footer and the home page contact section.
 export const SOCIAL_LINKS = [

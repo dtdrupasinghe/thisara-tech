@@ -4,7 +4,7 @@ import PostCard from '../components/PostCard.astro';
 import { Image } from 'astro:assets';
 import { getPosts } from '../utils';
 import heroPhoto from '../assets/hero-photo.webp';
-import { CATEGORIES, CONTACT_EMAIL, DEFAULT_COVER, ROLES, SOCIAL_LINKS } from '../consts';
+import { CATEGORIES, DEFAULT_COVER, ROLES, SOCIAL_LINKS } from '../consts';
 
 const posts = await getPosts();
 const categories = CATEGORIES.map((c) => ({
@@ -90,10 +90,10 @@ const nameWords = 'Thisara Rupasinghe'.split(' ').map((w) => [...w].map((ch) => 
     <div class="contact-card">
       <div>
         <h2 id="contact">Get in touch</h2>
-        <p>Have a question about a post, an idea for a topic, or want me to speak at your event? Reach out on any of these.</p>
+        <p>Have a question about a post, an idea for a topic, or want me to speak at your event? Send me a message or find me here.</p>
       </div>
       <ul class="contact-links">
-        {CONTACT_EMAIL && <li><a class="btn" href={`mailto:${CONTACT_EMAIL}`}>Email me</a></li>}
+        <li><a class="btn" href="/contact/">Send a message</a></li>
         {SOCIAL_LINKS.map((s) => <li><a class="btn btn-ghost" href={s.href} rel="me noopener">{s.label}</a></li>)}
         <li><a class="btn btn-ghost" href="/about/">About me</a></li>
       </ul>

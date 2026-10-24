@@ -1,0 +1,50 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SOCIAL_LINKS, WEB3FORMS_KEY } from '../../consts';
+
+// The form posts straight to Web3Forms, which emails the message and then sends the visitor to the thank-you page.
+const thanksUrl = new URL('/contact/thanks/', Astro.site).href;
+---
+
+<Base title="Contact" description="Send Thisara a message: questions about a post, topic ideas or speaking invites.">
+  <article class="narrow">
+    <header class="post-head">
+      <h1>Contact me</h1>
+      <p class="lead">Have a question about a post, an idea for a topic, or want me to speak at your event? Send me a message and I'll get back to you.</p>
+    </header>
+
+    {WEB3FORMS_KEY ? (
+      <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+        <input type="hidden" name="subject" value="New message from thisara.tech" />
+        <input type="hidden" name="from_name" value="thisara.tech contact form" />
+        <input type="hidden" name="redirect" value={thanksUrl} />
+        <input type="checkbox" name="botcheck" class="sr-only" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required maxlength="100" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required maxlength="200" autocomplete="email" />
+          <p class="hint">So I can reply to you. I won't share it.</p>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="7" required maxlength="5000"></textarea>
+        </div>
+        <button class="btn btn-dark" type="submit">Send message</button>
+      </form>
+    ) : (
+      <p class="about-card">The contact form is being set up. Until then, you can reach me on the links below.</p>
+    )}
+
+    <div class="about-card">
+      <h2 style="margin:0 0 12px;font-size:22px">Or find me on</h2>
+      <ul>
+        {SOCIAL_LINKS.map((s) => <li><a href={s.href} rel="me noopener">{s.label}</a></li>)}
+      </ul>
+    </div>
+  </article>
+</Base>
