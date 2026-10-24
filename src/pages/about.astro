@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import SocialIcons from '../components/SocialIcons.astro';
 import SectionHeader from '../components/about/SectionHeader.astro';
@@ -8,7 +7,6 @@ import ExperienceTimeline from '../components/about/ExperienceTimeline.astro';
 import VentureCard from '../components/about/VentureCard.astro';
 import TalkCard from '../components/about/TalkCard.astro';
 import VolunteerCard from '../components/about/VolunteerCard.astro';
-import aboutPhoto from '../assets/about.webp';
 import { education } from '../data/education';
 import { experience } from '../data/experience';
 import { ventures } from '../data/ventures';
@@ -23,13 +21,14 @@ import { volunteering } from '../data/volunteering';
   <div class="about-page">
     <section class="ab-wrap ab-intro" aria-labelledby="about-title">
       <div class="ab-photo ab-rise">
-        <Image
-          src={aboutPhoto}
+        <img
+          src="/images/about-photo.webp"
+          srcset="/images/about-photo-600.webp 600w, /images/about-photo-1000.webp 1000w, /images/about-photo.webp 1812w"
+          sizes="(max-width: 760px) min(80vw, 420px), 380px"
+          width="1812"
+          height="2926"
           alt="Thisara Rupasinghe"
-          width={720}
-          widths={[360, 540, 720]}
-          sizes="(max-width: 760px) 90vw, 420px"
-          loading="eager"
+          decoding="async"
           fetchpriority="high"
         />
       </div>
