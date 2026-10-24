@@ -3,6 +3,8 @@ title: 'How I host this blog on Azure Static Web Apps for free'
 description: 'A step-by-step guide to deploying an Astro site on Azure Static Web Apps (Free plan) with GitHub, automatic deploys, a custom domain and free SSL.'
 pubDate: 2026-10-24
 tags: ['azure', 'static-web-apps', 'astro', 'free-tools']
+cover: '/images/azure-static-web-apps-blog.jpg'
+coverAlt: 'Host your blog on Azure for free: Static Web Apps, GitHub and free SSL, with a git push to build to live flow'
 ---
 
 This blog costs me nothing to host. It's a static site built with [Astro](https://astro.build), deployed to **Azure Static Web Apps** on the Free plan, and every time I push a new post to GitHub it goes live automatically. Here's the full setup - the same steps work for any static site (plain HTML, Hugo, Vite, Next.js static export and so on).
