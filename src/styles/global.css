@@ -556,7 +556,7 @@ img { max-width: 100%; height: auto; }
 .ab-talk { container-type: inline-size; padding: 20px; }
 .ab-talk-inner { display: flex; gap: 20px; align-items: flex-start; }
 .ab-badge { flex: none; width: 132px; height: 140px; display: grid; place-items: center; }
-.ab-badge img { width: 100%; height: 100%; object-fit: contain; }
+.ab-badge img { width: 100%; height: auto; max-height: 100%; object-fit: contain; border-radius: 12px; }
 .ab-badge-empty {
   width: 100%; height: 100%; margin: 0; padding: 12px; display: grid; place-items: center; text-align: center;
   border: 2px dashed var(--ink-line); border-radius: 16px; font-size: 13px; line-height: 1.4; color: var(--on-ink-faint);
@@ -568,7 +568,8 @@ img { max-width: 100%; height: auto; }
 
 /* volunteering: role history on a purple line, newest role filled */
 .ab-vol.is-featured { border-color: color-mix(in srgb, var(--lead) 60%, var(--ink-line)); }
-.ab-vol-head { display: flex; align-items: center; gap: 14px; }
+.ab-vol-head { display: flex; align-items: flex-start; gap: 14px; }
+.ab-vol-head > div { min-height: 48px; display: flex; flex-direction: column; justify-content: center; }
 .ab-vol-head h3 { font-size: 18px; }
 .ab-roles { margin: 20px 0 0; padding: 0 0 0 26px; list-style: none; }
 .ab-roles li { position: relative; padding-bottom: 14px; }

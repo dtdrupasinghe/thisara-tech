@@ -20,9 +20,6 @@ export const education: Education[] = [
     location: 'Sri Lanka',
     start: '[START YEAR]',
     end: 'Nov 2026',
-    research: [
-      'ML recommendation system for plantation fixed deposit investments (Flask web app)',
-      'Explainable AI for Azure cloud cost anomaly detection',
-    ],
+    research: ['Explainable AI for Azure cloud cost anomaly detection'],
   },
 ];

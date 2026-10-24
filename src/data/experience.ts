@@ -35,17 +35,13 @@ export const experience: Experience[] = [
     skills: ['Azure', 'Microsoft 365', 'FinOps'],
   },
   {
-    role: 'DevOps & QA Intern',
+    role: 'DevOps Engineer',
     company: 'Axiata Digital Labs',
-    start: '[START]',
-    end: '[END]',
-    note: '27 weeks',
+    location: 'Sri Lanka',
+    start: '2026',
     type: 'Internship',
     icon: 'code',
-    bullets: [
-      'CI/CD pipelines on Azure with SonarQube quality checks',
-      'UAT testing support for a regional client project',
-    ],
+    bullets: ['CI/CD pipelines on Azure with SonarQube quality checks'],
     skills: ['Docker', 'Jenkins', 'GitHub Actions', 'Kubernetes', 'Terraform', 'AWS'],
   },
 ];

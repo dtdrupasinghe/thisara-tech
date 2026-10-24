@@ -20,15 +20,15 @@ export const talks: Talk[] = [
     description:
       'Hands-on Azure workshop with a live site deployed on Azure Static Web Apps and GitHub Actions. Received a Token of Appreciation.',
     meta: 'CompuVate · NSBM Green University · 2026',
-    badge: '/images/azurex-2026-badge.png',
-    badgeAlt: 'AzureX 2026 workshop badge',
+    badge: '/images/azurex-2026-badge.jpg',
+    badgeAlt: 'AzureX 2026 Token of Appreciation plaque for Thisara Rupasinghe',
   },
   {
     title: 'Early Achievers Meetup',
     type: 'Meetup talk',
     description: '[TALK TOPIC AND ONE LINE ABOUT IT]',
     meta: 'CertDirectory · February 2026',
-    badge: '/images/certdirectory-meetup-speaker-2026.png',
+    badge: '/images/certdirectory-meetup-speaker-2026.jpg',
     badgeAlt: 'CertDirectory Meetup Speaker badge, February 2026',
   },
 ];

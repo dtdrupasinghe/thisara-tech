@@ -40,7 +40,7 @@ const ALL_SOCIAL_LINKS = [
   { label: 'YouTube', href: 'https://www.youtube.com/@thisararupsinghe', icon: 'youtube' },
   { label: 'GitHub', href: 'https://github.com/[GITHUB USERNAME]', icon: 'github' },
   { label: 'Medium', href: '[MEDIUM URL]', icon: 'medium' },
-  { label: 'TikTok', href: '[TIKTOK URL]', icon: 'tiktok' },
-  { label: 'Facebook', href: '[FACEBOOK URL]', icon: 'facebook' },
+  { label: 'TikTok', href: 'https://www.tiktok.com/@thisararupasinghe', icon: 'tiktok' },
+  { label: 'Facebook', href: 'https://www.facebook.com/thisara.devops', icon: 'facebook' },
 ];
 export const SOCIAL_LINKS = ALL_SOCIAL_LINKS.filter((link) => filled(link.href));
