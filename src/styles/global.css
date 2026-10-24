@@ -395,21 +395,22 @@ img { max-width: 100%; height: auto; }
 .contact-links { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 
 /* ---------- newsletter signup (home page, posts, /newsletter/, footer) */
+/* --ink matches the beehiiv form's own background, so the form blends into the card instead of sitting in a box. */
 .nl-card {
-  margin-top: 56px; padding: 36px 32px; border-radius: 24px;
-  background: var(--ink); color: var(--on-ink); border: 1px solid var(--ink-line);
-  display: flex; flex-wrap: wrap; align-items: center; gap: 20px 24px;
+  max-width: 620px; margin: 56px auto 0; padding: 48px 32px; border-radius: 28px; border: 1px solid var(--line);
+  background: radial-gradient(ellipse 65% 130px at 50% 0%, color-mix(in srgb, var(--accent-strong) 12%, transparent), transparent), var(--ink);
+  color: var(--on-ink); text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
 }
 .nl-icon {
-  flex: none; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 16px;
-  background: var(--ink-card); border: 1px solid var(--ink-line); color: var(--accent-strong);
+  flex: none; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 18px;
+  background: color-mix(in srgb, var(--accent-strong) 14%, transparent); color: var(--accent-strong);
 }
-.nl-has-form .nl-icon { align-self: flex-start; }
-.nl-body { flex: 1 1 320px; min-width: 0; }
+.nl-body { max-width: 520px; }
 .nl-card h2 { margin: 0 0 6px; font-size: clamp(22px, 3vw, 28px); line-height: 1.25; letter-spacing: -0.01em; }
-.nl-card p { margin: 0; color: var(--on-ink-muted); max-width: 560px; }
+.nl-card p { margin: 0; color: var(--on-ink-muted); }
 /* beehiiv form (its script adds the iframe). color-scheme matches the form page so the frame stays transparent in dark mode. */
-.nl-embed { max-width: 560px; margin-top: 18px; color-scheme: light; container-type: inline-size; }
+.nl-embed { width: 100%; max-width: 520px; margin-inline: auto; color-scheme: light; container-type: inline-size; }
 /* The script fixes the iframe at 350px, which only fits the form on wide cards. Narrower forms wrap onto more lines,
    so give them more room (any spare space under the form is transparent). */
 @container (max-width: 479px) { .nl-embed iframe { height: 460px !important; } }
@@ -649,17 +650,17 @@ img { max-width: 100%; height: auto; }
 
 @media (prefers-reduced-motion: no-preference) {
   .ab-card, .ab-rise { animation: ab-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards; animation-delay: calc(var(--i, 0) * 80ms); }
-  .ab-photo img { animation: ab-flicker 10s linear infinite; }
+  .ab-photo img { animation: ab-flicker 2s linear infinite; }
 }
 @keyframes ab-in { from { opacity: 0; transform: translateY(16px); } }
-/* About photo: flickers to black and white, stays there for about 3s, then fades back to colour.
-   The flicker changes stay under three per second. */
+/* About photo: switches between colour and black and white every second, with a quick flicker at each switch. */
 @keyframes ab-flicker {
-  0%, 40% { filter: grayscale(0); }
-  42%, 46% { filter: grayscale(1); }
-  48%, 52% { filter: grayscale(0); }
-  54%, 85% { filter: grayscale(1); }
-  93%, 100% { filter: grayscale(0); }
+  0%, 3% { filter: grayscale(1); }
+  5%, 44% { filter: grayscale(0); }
+  46%, 49% { filter: grayscale(1); }
+  51%, 54% { filter: grayscale(0); }
+  56%, 94% { filter: grayscale(1); }
+  96%, 100% { filter: grayscale(0); }
 }
 
 @media (max-width: 760px) {
@@ -701,7 +702,8 @@ img { max-width: 100%; height: auto; }
   .search { order: 3; max-width: none; flex-basis: 100%; }
   .hero-inner { padding-block: 96px 40px; }
   .hero-desc { font-size: 18px; }
-  .contact-card, .nl-card { padding: 28px 22px; }
+  .contact-card { padding: 28px 22px; }
+  .nl-card { padding: 32px 20px; }
   .hero-home { min-height: 0; }
   .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .hero-text { padding-block: 64px 0; }

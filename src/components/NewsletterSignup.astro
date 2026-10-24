@@ -1,6 +1,7 @@
 ---
 // Newsletter signup (beehiiv). Renders nothing until NEWSLETTER in consts.ts has a subscribe link or an embed.
 // "full" is the card on the home page, posts and /newsletter/; "compact" is the one-line footer version.
+// With a beehiiv form the form brings its own heading, so the card only adds the icon around it.
 import { NEWSLETTER, NEWSLETTER_ON } from '../consts';
 import { filled } from '../placeholders';
 
@@ -19,45 +20,50 @@ const formId = filled(NEWSLETTER.formId);
 )}
 
 {NEWSLETTER_ON && variant === 'full' && (
-  <section class:list={['nl-card', { 'nl-has-form': formId }, extra]} aria-labelledby="newsletter-title">
+  <section
+    class:list={['nl-card', extra]}
+    aria-label={formId ? `Subscribe to ${NEWSLETTER.name}` : undefined}
+    aria-labelledby={formId ? undefined : 'newsletter-title'}
+  >
     <span class="nl-icon">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
         <rect x="3" y="5" width="18" height="14" rx="2"></rect>
         <path d="m3 7 9 6 9-6"></path>
       </svg>
     </span>
-    <div class="nl-body">
-      <h2 id="newsletter-title">Get free vouchers and tech updates in your inbox</h2>
-      <p>New free certifications, student perks and Azure tips. No spam, unsubscribe anytime.</p>
-      {formId && (
-        <div class="nl-embed" data-form={formId} data-title={`Subscribe to ${NEWSLETTER.name}`}>
-          <script is:inline>
-            // Loads beehiiv's form script once the card is close to the screen, then gives the form's iframe
-            // (the script adds it without a title) a name for screen readers.
-            (() => {
-              const box = document.currentScript.parentElement;
-              new IntersectionObserver((entries, io) => {
-                if (!entries[0].isIntersecting) return;
-                io.disconnect();
-                new MutationObserver((_, mo) => {
-                  const frame = box.querySelector('iframe');
-                  if (frame) { frame.title = box.dataset.title; mo.disconnect(); }
-                }).observe(box, { childList: true, subtree: true });
-                const loader = document.createElement('script');
-                loader.src = 'https://subscribe-forms.beehiiv.com/v3/loader.js';
-                loader.async = true;
-                loader.dataset.beehiivForm = box.dataset.form;
-                box.append(loader);
-              }, { rootMargin: '600px' }).observe(box);
-            })();
-          </script>
+    {formId ? (
+      <div class="nl-embed" data-form={formId} data-title={`Subscribe to ${NEWSLETTER.name}`}>
+        <script is:inline>
+          // Loads beehiiv's form script once the card is close to the screen, then gives the form's iframe
+          // (the script adds it without a title) a name for screen readers.
+          (() => {
+            const box = document.currentScript.parentElement;
+            new IntersectionObserver((entries, io) => {
+              if (!entries[0].isIntersecting) return;
+              io.disconnect();
+              new MutationObserver((_, mo) => {
+                const frame = box.querySelector('iframe');
+                if (frame) { frame.title = box.dataset.title; mo.disconnect(); }
+              }).observe(box, { childList: true, subtree: true });
+              const loader = document.createElement('script');
+              loader.src = 'https://subscribe-forms.beehiiv.com/v3/loader.js';
+              loader.async = true;
+              loader.dataset.beehiivForm = box.dataset.form;
+              box.append(loader);
+            }, { rootMargin: '600px' }).observe(box);
+          })();
+        </script>
+      </div>
+    ) : (
+      <>
+        <div class="nl-body">
+          <h2 id="newsletter-title">Get free vouchers and tech updates in your inbox</h2>
+          <p>New free certifications, student perks and Azure tips. No spam, unsubscribe anytime.</p>
         </div>
-      )}
-    </div>
-    {!formId && (
-      <a class="btn" href={subscribeUrl} target="_blank" rel="noopener">
-        Subscribe <span class="sr-only">(opens in a new tab)</span>
-      </a>
+        <a class="btn" href={subscribeUrl} target="_blank" rel="noopener">
+          Subscribe <span class="sr-only">(opens in a new tab)</span>
+        </a>
+      </>
     )}
   </section>
 )}
