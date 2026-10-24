@@ -2,11 +2,14 @@
 import Base from '../layouts/Base.astro';
 import PostCard from '../components/PostCard.astro';
 import { Image } from 'astro:assets';
-import { getPosts } from '../utils';
+import { formatDate, getPosts } from '../utils';
+import { formatViews, getLatestVideos } from '../youtube';
 import heroPhoto from '../assets/hero-photo.webp';
 import { CATEGORIES, DEFAULT_COVER, ROLES, SOCIAL_LINKS } from '../consts';
 
 const posts = await getPosts();
+const videos = await getLatestVideos();
+const channelUrl = SOCIAL_LINKS.find((s) => s.label === 'YouTube')?.href;
 const categories = CATEGORIES.map((c) => ({
   ...c,
   count: posts.filter((p) => p.data.tags.includes(c.tag)).length,
@@ -57,6 +60,42 @@ const nameWords = 'Thisara Rupasinghe'.split(' ').map((w) => [...w].map((ch) => 
     </div>
   </section>
 
+  {videos.length > 0 && (
+    <section class="wrap" aria-labelledby="youtube">
+      <div class="section-head">
+        <h2 id="youtube">Latest on YouTube</h2>
+        <div class="slider-nav" hidden>
+          <button class="slider-btn" type="button" data-dir="-1" aria-label="Scroll videos left">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"></path></svg>
+          </button>
+          <button class="slider-btn" type="button" data-dir="1" aria-label="Scroll videos right">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
+          </button>
+        </div>
+      </div>
+      <ul class="video-track">
+        {videos.map((v) => (
+          <li class="video-card">
+            <a href={`https://www.youtube.com/watch?v=${v.id}`} rel="noopener" target="_blank">
+              <div class="video-thumb">
+                <img src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt="" width="480" height="360" loading="lazy" decoding="async" />
+                <span class="video-play" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg>
+                </span>
+              </div>
+              <h3>{v.title}</h3>
+              <p class="meta">
+                <time datetime={v.published}>{formatDate(new Date(v.published))}</time>
+                {v.views > 0 && <><span aria-hidden="true">·</span><span>{formatViews(v.views)}</span></>}
+              </p>
+            </a>
+          </li>
+        ))}
+      </ul>
+      {channelUrl && <p class="video-more"><a href={channelUrl} rel="me noopener">See all videos on YouTube →</a></p>}
+    </section>
+  )}
+
   {posts.length > 0 && (
     <section class="wrap" aria-labelledby="latest">
       <div class="section-head">
@@ -100,6 +139,19 @@ const nameWords = 'Thisara Rupasinghe'.split(' ').map((w) => [...w].map((ch) => 
     </div>
   </section>
 </Base>
+
+<script>
+  // Arrow buttons for the YouTube slider. Without JS the row still scrolls by swipe or trackpad.
+  const track = document.querySelector<HTMLElement>('.video-track');
+  const nav = document.querySelector<HTMLElement>('.slider-nav');
+  if (track && nav) {
+    nav.hidden = false;
+    nav.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('button');
+      if (btn) track.scrollBy({ left: Number(btn.dataset.dir) * track.clientWidth * 0.85 });
+    });
+  }
+</script>
 
 <script>
   // Types each role, holds it, deletes it, then moves to the next. Without JS the first role stays.

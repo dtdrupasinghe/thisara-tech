@@ -250,6 +250,39 @@ img { max-width: 100%; height: auto; }
 .lead { font-size: 20px; color: var(--muted); margin: 0; }
 .search-status { margin: 14px 0 0; font-weight: 700; }
 
+/* ---------- YouTube slider (scroll-snap; JS only adds the arrow buttons) */
+.slider-nav { display: flex; gap: 8px; }
+.slider-nav[hidden] { display: none; }
+.slider-btn {
+  width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line);
+  background: var(--bg); color: var(--text); display: grid; place-items: center; cursor: pointer;
+}
+.slider-btn:hover { border-color: var(--accent-strong); color: var(--accent); }
+.video-track {
+  list-style: none; margin: 0; padding: 4px 2px 16px;
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(260px, calc((100% - 3 * 20px) / 4)); gap: 20px;
+  overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+}
+.video-card { scroll-snap-align: start; }
+.video-card a { display: block; color: inherit; text-decoration: none; }
+.video-thumb { position: relative; border-radius: 16px; overflow: hidden; background: var(--ink); }
+.video-thumb img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; transition: transform 0.25s ease; }
+.video-card a:hover .video-thumb img { transform: scale(1.04); }
+.video-play {
+  position: absolute; right: 12px; bottom: 12px; width: 40px; height: 40px; border-radius: 50%;
+  background: var(--accent-strong); color: #1a0d04; display: grid; place-items: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.video-card h3 {
+  font-size: 17px; line-height: 1.4; margin: 12px 0 4px; letter-spacing: -0.005em;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.video-card a:hover h3 { color: var(--accent); }
+.video-more { margin: 8px 0 0; font-weight: 700; }
+.video-more a { text-decoration: none; }
+@media (prefers-reduced-motion: no-preference) { .video-track { scroll-behavior: smooth; } }
+
 /* ---------- cards */
 .card-grid {
   list-style: none; padding: 0; margin: 0;
@@ -392,6 +425,6 @@ img { max-width: 100%; height: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card, .btn, .cat-card { transition: none; }
+  .card, .btn, .cat-card, .video-thumb img { transition: none; }
   .card:hover, .cat-card:hover { transform: none; }
 }

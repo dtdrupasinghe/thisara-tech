@@ -23,6 +23,9 @@ export const ROLES = ['Cloud Support Engineer', 'Content Creator', 'FinOps Pract
 // It's safe to publish; it only lets people send messages to you. Leave empty and the form shows a notice instead.
 export const WEB3FORMS_KEY = '54b4f6a2-afa1-4009-9838-7cc93914aef7';
 
+// YouTube channel whose latest uploads show on the home page (from youtube.com/channel/<id>).
+export const YOUTUBE_CHANNEL_ID = 'UCIHC7vgPYJNEFiEngDKsrsA';
+
 // Shown in the footer and the home page contact section.
 export const SOCIAL_LINKS = [
   { label: 'YouTube', href: 'https://www.youtube.com/@thisararupsinghe' },
