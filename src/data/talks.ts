@@ -17,8 +17,7 @@ export const talks: Talk[] = [
   {
     title: 'AzureX 2026',
     type: 'Workshop',
-    description:
-      'Hands-on Azure workshop with a live site deployed on Azure Static Web Apps and GitHub Actions. Received a Token of Appreciation.',
+    description: 'Introduction to cloud computing and Microsoft Azure.',
     meta: 'CompuVate · NSBM Green University · 2026',
     badge: '/images/azurex-2026-badge.jpg',
     badgeAlt: 'AzureX 2026 Token of Appreciation plaque for Thisara Rupasinghe',
