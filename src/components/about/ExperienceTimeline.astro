@@ -1,0 +1,45 @@
+---
+// Vertical timeline: centre line with cards alternating left and right on desktop, one column on phones.
+import Icon from './Icon.astro';
+import Pill from './Pill.astro';
+import type { Experience } from '../../data/experience';
+import { dateRange, filled, filledList } from '../../placeholders';
+
+interface Props {
+  items: Experience[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="ab-timeline">
+  {items.map((item, i) => {
+    const dates = dateRange(item.start, item.end, item.note);
+    const where = [filled(item.company), filled(item.location)].filter(Boolean).join(' · ');
+    const type = filled(item.type);
+    const bullets = filledList(item.bullets);
+    const skills = filledList(item.skills);
+    return (
+      <li class="ab-tl-item">
+        {dates && <p class="ab-tl-date">{dates}</p>}
+        <span class="ab-tl-node" aria-hidden="true"><Icon name={item.icon} size={20} /></span>
+        <article class:list={['ab-card', 'ab-tl-card', { 'is-current': item.current }]} style={`--i: ${i}`}>
+          {item.current && <Pill class="ab-now">Now</Pill>}
+          {type && <Pill class="ab-type">{type}</Pill>}
+          <h3>{item.role}</h3>
+          {where && <p class="ab-muted">{where}</p>}
+          {bullets.length > 0 && (
+            <ul class="ab-list">
+              {bullets.map((b) => <li>{b}</li>)}
+            </ul>
+          )}
+          {skills.length > 0 && (
+            <ul class="ab-chips" aria-label="Skills">
+              {skills.map((s) => <li>{s}</li>)}
+            </ul>
+          )}
+        </article>
+      </li>
+    );
+  })}
+</ol>

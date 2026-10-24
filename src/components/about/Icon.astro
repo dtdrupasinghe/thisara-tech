@@ -1,0 +1,30 @@
+---
+// Small line icons for the About page. Decorative, so hidden from screen readers.
+interface Props {
+  name: 'cap' | 'cloud' | 'code';
+  size?: number;
+}
+
+const { name, size = 24 } = Astro.props;
+
+const paths = {
+  cap: ['M22 10 12 5 2 10l10 5 10-5Z', 'M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5', 'M22 10v6'],
+  cloud: ['M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z'],
+  code: ['m16 18 6-6-6-6', 'm8 6-6 6 6 6'],
+};
+---
+
+<svg
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {paths[name].map((d) => <path d={d} />)}
+</svg>

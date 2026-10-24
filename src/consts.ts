@@ -1,3 +1,5 @@
+import { filled } from './placeholders';
+
 // Site-wide settings. Edit these to change the name, tagline and links everywhere.
 export const SITE_TITLE = 'Thisara';
 export const SITE_TAGLINE = 'Cloud, Azure & FinOps - notes from Sri Lanka';
@@ -31,8 +33,14 @@ export const WEB3FORMS_KEY = '54b4f6a2-afa1-4009-9838-7cc93914aef7';
 // YouTube channel whose latest uploads show on the home page (from youtube.com/channel/<id>).
 export const YOUTUBE_CHANNEL_ID = 'UCIHC7vgPYJNEFiEngDKsrsA';
 
-// Shown in the footer and the home page contact section.
-export const SOCIAL_LINKS = [
-  { label: 'YouTube', href: 'https://www.youtube.com/@thisararupsinghe' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/thisararupasinghe' },
+// Social profiles: icons in the footer and on the About page, buttons on the home and contact pages.
+// `icon` picks the logo in components/SocialIcons.astro. Links still holding a [placeholder] are left out.
+const ALL_SOCIAL_LINKS = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/thisararupasinghe', icon: 'linkedin' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@thisararupsinghe', icon: 'youtube' },
+  { label: 'GitHub', href: 'https://github.com/[GITHUB USERNAME]', icon: 'github' },
+  { label: 'Medium', href: '[MEDIUM URL]', icon: 'medium' },
+  { label: 'TikTok', href: '[TIKTOK URL]', icon: 'tiktok' },
+  { label: 'Facebook', href: '[FACEBOOK URL]', icon: 'facebook' },
 ];
+export const SOCIAL_LINKS = ALL_SOCIAL_LINKS.filter((link) => filled(link.href));

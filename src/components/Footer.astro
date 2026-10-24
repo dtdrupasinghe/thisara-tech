@@ -1,15 +1,12 @@
 ---
-import { AUTHOR, SOCIAL_LINKS } from '../consts';
+import SocialIcons from './SocialIcons.astro';
+import { AUTHOR } from '../consts';
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="wrap">
     <span>© {year} {AUTHOR}</span>
-    <ul>
-      {SOCIAL_LINKS.map((s) => (
-        <li><a href={s.href} rel="me noopener">{s.label}</a></li>
-      ))}
-    </ul>
+    <SocialIcons />
   </div>
 </footer>

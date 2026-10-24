@@ -1,0 +1,34 @@
+---
+import Pill from './Pill.astro';
+import type { Talk } from '../../data/talks';
+import { filled } from '../../placeholders';
+import { publicImage } from '../../utils';
+
+interface Props {
+  item: Talk;
+  index?: number;
+}
+
+const { item, index = 0 } = Astro.props;
+const badge = publicImage(item.badge);
+const description = filled(item.description);
+const meta = filled(item.meta);
+---
+
+<article class="ab-card ab-talk" style={`--i: ${index}`}>
+  <div class="ab-talk-inner">
+    <div class="ab-badge">
+      {badge ? (
+        <img src={badge} alt={item.badgeAlt} width="132" height="140" loading="lazy" decoding="async" />
+      ) : (
+        <p class="ab-badge-empty">Badge coming soon</p>
+      )}
+    </div>
+    <div>
+      <Pill>{item.type}</Pill>
+      <h3>{item.title}</h3>
+      {description && <p class="ab-muted">{description}</p>}
+      {meta && <p class="ab-meta">{meta}</p>}
+    </div>
+  </div>
+</article>

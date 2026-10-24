@@ -1,36 +1,104 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import { SOCIAL_LINKS } from '../consts';
+import SocialIcons from '../components/SocialIcons.astro';
+import SectionHeader from '../components/about/SectionHeader.astro';
+import EducationCard from '../components/about/EducationCard.astro';
+import ExperienceTimeline from '../components/about/ExperienceTimeline.astro';
+import VentureCard from '../components/about/VentureCard.astro';
+import TalkCard from '../components/about/TalkCard.astro';
+import VolunteerCard from '../components/about/VolunteerCard.astro';
+import heroPhoto from '../assets/hero-photo.webp';
+import { education } from '../data/education';
+import { experience } from '../data/experience';
+import { ventures } from '../data/ventures';
+import { talks } from '../data/talks';
+import { volunteering } from '../data/volunteering';
 ---
 
-<Base title="About" description="About Thisara - cloud support engineer, Azure and FinOps.">
-  <article class="narrow">
-    <header class="post-head">
-      <h1>About me</h1>
-      <p class="lead">I'm Thisara, a cloud support engineer from Sri Lanka working with Microsoft Azure.</p>
-    </header>
-    <div class="prose">
-      <p>
-        I write here about the things I learn on the job and on my own: running workloads on Azure,
-        keeping cloud bills under control, and free tools that help students and junior engineers get started.
-      </p>
-      <p>
-        I'm also active in the Sri Lankan cloud and FinOps community as a speaker and content creator.
-        If something here helps you, or you spot a mistake, I'd love to hear from you.
-      </p>
-    </div>
-    <div class="about-card">
-      <h2 style="margin:0 0 12px;font-size:22px">Certifications</h2>
-      <ul>
-        <li>Microsoft Certified: Azure Administrator Associate (AZ-104)</li>
-        <li>FinOps Certified</li>
-      </ul>
-    </div>
-    <div class="about-card">
-      <h2 style="margin:0 0 12px;font-size:22px">Find me</h2>
-      <ul>
-        {SOCIAL_LINKS.map((s) => <li><a href={s.href} rel="me noopener">{s.label}</a></li>)}
-      </ul>
-    </div>
-  </article>
+<Base
+  title="About"
+  description="About Thisara Rupasinghe: cloud support engineer from Sri Lanka, final-year MIS student, FinOps practitioner and tech speaker."
+>
+  <div class="about-page">
+    <section class="ab-wrap ab-intro" aria-labelledby="about-title">
+      <div class="ab-photo ab-rise">
+        <Image
+          src={heroPhoto}
+          alt="Thisara Rupasinghe"
+          widths={[360, 540, 720]}
+          sizes="(max-width: 760px) 90vw, 420px"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="ab-intro-text">
+        <h1 id="about-title">Hi, I'm Thisara <span class="ab-hl">Rupasinghe</span></h1>
+        <p>
+          I'm a cloud support engineer from Sri Lanka, working with Microsoft Azure and Microsoft 365. I'm also a
+          final-year MIS student, a FinOps practitioner and a tech speaker. I write here to share practical cloud
+          knowledge for students and engineers.
+        </p>
+      </div>
+    </section>
+
+    {education.length > 0 && (
+      <section class="ab-wrap ab-section" style="--c: var(--edu)" aria-labelledby="education">
+        <SectionHeader id="education" eyebrow="Education" title="Where I studied" />
+        {education.map((item, i) => <EducationCard item={item} index={i} />)}
+      </section>
+    )}
+
+    {experience.length > 0 && (
+      <section class="ab-wrap ab-section" style="--c: var(--work)" aria-labelledby="experience">
+        <SectionHeader id="experience" eyebrow="Work experience" title="Where I've worked" subtitle="Newest first." />
+        <ExperienceTimeline items={experience} />
+      </section>
+    )}
+
+    {ventures.length > 0 && (
+      <section class="ab-wrap ab-section" style="--c: var(--venture)" aria-labelledby="ventures">
+        <SectionHeader
+          id="ventures"
+          eyebrow="Ventures"
+          title="Something I built"
+          subtitle="A business I started and run alongside my studies and work."
+        />
+        {ventures.map((item, i) => <VentureCard item={item} index={i} />)}
+      </section>
+    )}
+
+    {talks.length > 0 && (
+      <section class="ab-wrap ab-section" style="--c: var(--talk)" aria-labelledby="events">
+        <SectionHeader
+          id="events"
+          eyebrow="Events"
+          title="Events I've spoken at"
+          subtitle="Talks and workshops for students and early-career engineers."
+        />
+        <div class="ab-grid ab-grid-300">
+          {talks.map((item, i) => <TalkCard item={item} index={i} />)}
+        </div>
+      </section>
+    )}
+
+    {volunteering.length > 0 && (
+      <section class="ab-wrap ab-section" style="--c: var(--lead)" aria-labelledby="volunteering">
+        <SectionHeader
+          id="volunteering"
+          eyebrow="Volunteering"
+          title="Giving back at university"
+          subtitle="Clubs and communities I grew with, from member to leader."
+        />
+        <div class="ab-grid ab-grid-280">
+          {volunteering.map((item, i) => <VolunteerCard item={item} index={i} />)}
+        </div>
+      </section>
+    )}
+
+    <section class="ab-wrap ab-section ab-find" style="--c: var(--work)" aria-labelledby="find-me">
+      <h2 class="ab-eyebrow" id="find-me">Find me online</h2>
+      <SocialIcons />
+    </section>
+  </div>
 </Base>

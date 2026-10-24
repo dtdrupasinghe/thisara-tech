@@ -1,0 +1,10 @@
+---
+// Uppercase type pill in the section colour (--c) on a light tint of it.
+interface Props {
+  class?: string;
+}
+
+const { class: extra } = Astro.props;
+---
+
+<span class:list={['ab-pill', extra]}><slot /></span>

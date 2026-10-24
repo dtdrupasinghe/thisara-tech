@@ -1,0 +1,17 @@
+---
+// Centred section header: coloured eyebrow, title and an optional subtitle. Colour comes from --c on the section.
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+}
+
+const { id, eyebrow, title, subtitle } = Astro.props;
+---
+
+<header class="ab-head">
+  <p class="ab-eyebrow">{eyebrow}</p>
+  <h2 id={id}>{title}</h2>
+  {subtitle && <p class="ab-sub">{subtitle}</p>}
+</header>

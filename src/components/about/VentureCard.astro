@@ -1,0 +1,53 @@
+---
+import Logo from './Logo.astro';
+import Pill from './Pill.astro';
+import type { Venture } from '../../data/ventures';
+import { dateRange, filled, filledList } from '../../placeholders';
+
+interface Props {
+  item: Venture;
+  index?: number;
+}
+
+const { item, index = 0 } = Astro.props;
+const tagline = filled(item.tagline);
+const dates = dateRange(item.start, item.end);
+const bullets = filledList(item.bullets);
+const highlights = filledList(item.highlights);
+const url = filled(item.url);
+---
+
+<article class="ab-card ab-venture" style={`--i: ${index}`}>
+  <div class="ab-venture-brand">
+    <Logo src={item.logo} alt={`${item.name} logo`} initials={item.initials} size={64} />
+    <div>
+      <h3 class="ab-venture-name">{item.name}</h3>
+      {tagline && <p class="ab-muted">{tagline}</p>}
+    </div>
+    <p class="ab-venture-role">
+      <Pill>{item.role}</Pill>
+      {dates && <span class="ab-meta">{dates}</span>}
+    </p>
+  </div>
+  <div class="ab-venture-details">
+    {bullets.length > 0 && (
+      <>
+        <h4 class="ab-label">What I did</h4>
+        <ul class="ab-list">
+          {bullets.map((b) => <li>{b}</li>)}
+        </ul>
+      </>
+    )}
+    {highlights.length > 0 && (
+      <ul class="ab-chips ab-chips-hl" aria-label="Highlights">
+        {highlights.map((h) => <li>{h}</li>)}
+      </ul>
+    )}
+    {url && (
+      <a class="ab-btn" href={url} target="_blank" rel="noopener">
+        {filled(item.urlLabel) ?? url} <span aria-hidden="true">↗</span>
+        <span class="sr-only">(opens in a new tab)</span>
+      </a>
+    )}
+  </div>
+</article>
