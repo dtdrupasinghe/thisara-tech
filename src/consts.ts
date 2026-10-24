@@ -45,11 +45,11 @@ const ALL_SOCIAL_LINKS = [
 ];
 export const SOCIAL_LINKS = ALL_SOCIAL_LINKS.filter((link) => filled(link.href));
 
-// Newsletter on beehiiv. Until subscribeUrl or embedSrc is filled in, it stays off: no signup cards, no footer line,
-// no "Newsletter" nav link and no /newsletter/ page. With embedSrc set, the beehiiv form shows instead of the button.
+// Newsletter on beehiiv. Until subscribeUrl or formId is filled in, it stays off: no signup cards, no footer line,
+// no "Newsletter" nav link and no /newsletter/ page. With formId set, the beehiiv form shows instead of the button.
 export const NEWSLETTER = {
   name: "Thisara's Tech Updates",
   subscribeUrl: '', // beehiiv subscribe page URL, e.g. https://xxxx.beehiiv.com/subscribe
-  embedSrc: '', // beehiiv embed iframe src (optional)
+  formId: '7fb7dc4a-d89a-431f-868e-0eb7a4729d43', // data-beehiiv-form value from beehiiv's embed code (optional)
 };
-export const NEWSLETTER_ON = Boolean(filled(NEWSLETTER.subscribeUrl) || filled(NEWSLETTER.embedSrc));
+export const NEWSLETTER_ON = Boolean(filled(NEWSLETTER.subscribeUrl) || filled(NEWSLETTER.formId));
