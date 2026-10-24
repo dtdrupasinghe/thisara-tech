@@ -1,0 +1,29 @@
+---
+// One YouTube video: thumbnail, title, date and views. Opens on YouTube in a new tab.
+import { formatDate } from '../utils';
+import { formatViews, type Video } from '../youtube';
+
+interface Props {
+  video: Video;
+  /** Heading level for the title: h2 when the cards are the page's main list, h3 under a section heading. */
+  heading?: 'h2' | 'h3';
+}
+
+const { video, heading: Heading = 'h3' } = Astro.props;
+---
+
+<li class="video-card">
+  <a href={`https://www.youtube.com/watch?v=${video.id}`} rel="noopener" target="_blank">
+    <div class="video-thumb">
+      <img src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt="" width="480" height="360" loading="lazy" decoding="async" />
+      <span class="video-play" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"></path></svg>
+      </span>
+    </div>
+    <Heading class="video-title">{video.title}</Heading>
+    <p class="meta">
+      <time datetime={video.published}>{formatDate(new Date(video.published))}</time>
+      {video.views > 0 && <><span aria-hidden="true">·</span><span>{formatViews(video.views)}</span></>}
+    </p>
+  </a>
+</li>

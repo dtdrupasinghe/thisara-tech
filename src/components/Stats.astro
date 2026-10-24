@@ -1,0 +1,29 @@
+---
+// Follower counts from src/data/stats.ts, each linking to the profile. Hidden until at least two are filled in.
+import { SOCIAL_LINKS } from '../consts';
+import { stats } from '../data/stats';
+import { filled } from '../placeholders';
+import { SOCIAL_ICON_PATHS } from '../social-icons';
+
+const items = stats
+  .map((s) => ({ ...s, value: filled(s.value), href: SOCIAL_LINKS.find((l) => l.icon === s.icon)?.href }))
+  .filter((s) => s.value);
+---
+
+{items.length >= 2 && (
+  <section class="wrap stats" aria-label="Followers">
+    <ul class="stats-row">
+      {items.map((s) => (
+        <li>
+          <a class="stat" href={s.href} target="_blank" rel="me noopener">
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d={SOCIAL_ICON_PATHS[s.icon]} />
+            </svg>
+            <span class="stat-value">{s.value}</span>
+            <span class="stat-label">{s.label}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

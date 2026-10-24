@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import VideoCard from '../components/VideoCard.astro';
+import { SOCIAL_LINKS } from '../consts';
+import { getVideos } from '../youtube';
+
+const videos = await getVideos();
+const channelUrl = SOCIAL_LINKS.find((s) => s.icon === 'youtube')?.href;
+---
+
+<Base
+  title="Videos"
+  description="Sinhala video guides on free cloud certifications, student perks and learning tech for free, from Thisara Rupasinghe's YouTube channel."
+>
+  <section class="wrap">
+    <header class="page-head">
+      <h1>Videos</h1>
+      <p class="lead">Sinhala guides on free cloud certifications, student perks and learning tech for free.</p>
+      <div class="videos-actions">
+        {channelUrl && (
+          <a class="btn btn-dark" href={`${channelUrl}?sub_confirmation=1`} target="_blank" rel="noopener">
+            Subscribe on YouTube <span class="sr-only">(opens in a new tab)</span>
+          </a>
+        )}
+        <span class="meta">{videos.length} videos, newest first</span>
+      </div>
+    </header>
+    <ul class="video-grid">
+      {videos.map((video) => <VideoCard video={video} heading="h2" />)}
+    </ul>
+  </section>
+</Base>
