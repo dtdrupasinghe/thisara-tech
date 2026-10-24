@@ -22,9 +22,8 @@ export const ROLES = ['Cloud Support Engineer', 'Content Creator', 'FinOps Pract
 // Shown as an "Email me" button in the home page contact section. Leave empty to hide it.
 export const CONTACT_EMAIL = '';
 
-// Replace the placeholder usernames with your real profiles (or delete a line to hide it).
+// Shown in the footer and the home page contact section.
 export const SOCIAL_LINKS = [
-  { label: 'YouTube', href: 'https://www.youtube.com/@your-channel' },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/your-profile' },
-  { label: 'GitHub', href: 'https://github.com/your-username' },
+  { label: 'YouTube', href: 'https://www.youtube.com/@thisararupsinghe' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/thisararupasinghe' },
 ];
