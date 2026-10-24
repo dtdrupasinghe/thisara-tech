@@ -10,10 +10,11 @@ import { CATEGORIES, DEFAULT_COVER, ROLES, SOCIAL_LINKS } from '../consts';
 const posts = await getPosts();
 const videos = await getLatestVideos();
 const channelUrl = SOCIAL_LINKS.find((s) => s.label === 'YouTube')?.href;
+// Only categories that have posts; the rest appear once a post uses that tag.
 const categories = CATEGORIES.map((c) => ({
   ...c,
   count: posts.filter((p) => p.data.tags.includes(c.tag)).length,
-}));
+})).filter((c) => c.count > 0);
 // Each letter gets its own delay (--i) so the name types in one after another.
 let letter = 0;
 const nameWords = 'Thisara Rupasinghe'.split(' ').map((w) => [...w].map((ch) => ({ ch, i: letter++ })));
@@ -58,6 +59,7 @@ const nameWords = 'Thisara Rupasinghe'.split(' ').map((w) => [...w].map((ch) => 
         />
       </div>
     </div>
+    <div class="hero-fade" aria-hidden="true"></div>
   </section>
 
   {videos.length > 0 && (
@@ -108,22 +110,24 @@ const nameWords = 'Thisara Rupasinghe'.split(' ').map((w) => [...w].map((ch) => 
     </section>
   )}
 
-  <section class="wrap" aria-labelledby="categories">
-    <div class="section-head">
-      <h2 id="categories">Categories</h2>
-    </div>
-    <ul class="cat-grid">
-      {categories.map((c) => (
-        <li>
-          <a class="cat-card" href={`/tags/${c.tag}/`}>
-            <span class="cat-name">{c.label}</span>
-            <span class="cat-desc">{c.desc}</span>
-            <span class="cat-count">{c.count === 0 ? 'Coming soon' : `${c.count} ${c.count === 1 ? 'post' : 'posts'}`}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-  </section>
+  {categories.length > 0 && (
+    <section class="wrap" aria-labelledby="categories">
+      <div class="section-head">
+        <h2 id="categories">Categories</h2>
+      </div>
+      <ul class="cat-grid">
+        {categories.map((c) => (
+          <li>
+            <a class="cat-card" href={`/tags/${c.tag}/`}>
+              <span class="cat-name">{c.label}</span>
+              <span class="cat-desc">{c.desc}</span>
+              <span class="cat-count">{c.count} {c.count === 1 ? 'post' : 'posts'}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
 
   <section class="wrap" aria-labelledby="contact">
     <div class="contact-card">

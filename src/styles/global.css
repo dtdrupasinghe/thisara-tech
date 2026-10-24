@@ -170,7 +170,7 @@ img { max-width: 100%; height: auto; }
 .hero-grid {
   position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: end;
 }
-.hero-text { position: relative; z-index: 1; align-self: center; padding-block: 128px 88px; }
+.hero-text { position: relative; z-index: 2; align-self: center; padding-block: 128px 88px; }
 .hero-title .hi { display: block; }
 .hero-title .word { display: inline-block; white-space: nowrap; }
 .hero-title .ch { display: inline-block; }
@@ -185,6 +185,10 @@ img { max-width: 100%; height: auto; }
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
+.hero-fade {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 160px; z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom, transparent, var(--bg));
+}
 .hero-portrait { position: relative; justify-self: center; width: min(100%, 520px); margin-top: 32px; }
 .portrait-glow {
   position: absolute; left: 50%; bottom: 6%; width: 118%; aspect-ratio: 1;
@@ -286,7 +290,7 @@ img { max-width: 100%; height: auto; }
 /* ---------- cards */
 .card-grid {
   list-style: none; padding: 0; margin: 0;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
 }
 .card {
   display: flex; flex-direction: column;
