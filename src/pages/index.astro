@@ -48,17 +48,15 @@ const nameWords = 'Thisara Rupasinghe'.split(' ').map((w) => [...w].map((ch) => 
         <div class="portrait-glow" aria-hidden="true"></div>
         <Image class="portrait-ghost ghost-left" src={heroPhoto} alt="" aria-hidden="true" widths={[340, 480, 680, 900]} sizes="(max-width: 720px) 86vw, 520px" loading="eager" />
         <Image class="portrait-ghost ghost-right" src={heroPhoto} alt="" aria-hidden="true" widths={[340, 480, 680, 900]} sizes="(max-width: 720px) 86vw, 520px" loading="eager" />
-        <div class="portrait-main">
-          <Image
-            class="portrait-img"
-            src={heroPhoto}
-            alt="Thisara Rupasinghe smiling, wearing a dark suit and blue tie"
-            widths={[340, 480, 680, 900]}
-            sizes="(max-width: 720px) 86vw, 520px"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </div>
+        <Image
+          class="portrait-img"
+          src={heroPhoto}
+          alt="Thisara Rupasinghe smiling, wearing a dark suit and blue tie"
+          widths={[340, 480, 680, 900]}
+          sizes="(max-width: 720px) 86vw, 520px"
+          loading="eager"
+          fetchpriority="high"
+        />
       </div>
     </div>
     <div class="hero-fade" aria-hidden="true"></div>
