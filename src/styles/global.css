@@ -314,16 +314,19 @@ img { max-width: 100%; height: auto; }
 
 /* ---------- follower stats (home) */
 .stats { margin-top: 40px; }
-.stats-row { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px; }
+/* Two tiles per row on phones and tablets, all of them (--n) in one row on wider screens. */
+.stats-row { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (min-width: 900px) { .stats-row { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: 16px; } }
 .stat {
-  display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 14px;
+  display: flex; flex-direction: column; gap: 4px; height: 100%;
   padding: 20px 22px; border: 1px solid var(--line); border-radius: 20px; background: var(--bg);
   color: inherit; text-decoration: none; transition: border-color 0.15s ease, transform 0.15s ease;
 }
 .stat:hover { color: inherit; border-color: var(--accent-strong); transform: translateY(-2px); }
-.stat svg { grid-row: span 2; color: var(--accent-strong); }
-.stat-value { font-size: clamp(28px, 4vw, 36px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.stat svg { margin-bottom: 10px; color: var(--accent-strong); }
+.stat-value { font-size: clamp(26px, 6vw, 36px); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
 .stat-label { font-size: 15px; color: var(--muted); }
+@media (max-width: 400px) { .stat { padding: 16px; } }
 .video-more a { text-decoration: none; }
 @media (prefers-reduced-motion: no-preference) { .video-track { scroll-behavior: smooth; } }
 
