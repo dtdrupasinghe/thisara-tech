@@ -370,8 +370,12 @@ img { max-width: 100%; height: auto; }
 .post-hero .lead { color: var(--on-ink-muted); }
 .post-hero .tag { background: rgba(245, 122, 34, 0.18); color: #ffb27a; }
 .post-body { padding-top: 40px; }
-.post-cover { margin: 0 0 36px; }
-.post-cover img { display: block; width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--line); }
+.post-hero-inner.has-cover { padding-block: 96px 56px; }
+.post-cover { margin: 32px 0 0; }
+.post-cover img {
+  display: block; width: 100%; height: auto; border-radius: var(--radius);
+  border: 1px solid var(--ink-line); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
 
 .prose { font-size: 18px; }
 .prose h2 { font-size: 30px; line-height: 1.25; margin: 48px 0 12px; letter-spacing: -0.01em; }

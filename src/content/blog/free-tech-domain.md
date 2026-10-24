@@ -4,7 +4,7 @@ description: 'Step-by-step: claim a free .tech domain with the Hacktoberfest per
 pubDate: 2026-10-24
 tags: ['domains', 'free-tools', 'hacktoberfest']
 cover: '/images/free-tech-domain.jpg'
-coverAlt: 'Free .tech domain for one year with the Hacktoberfest perk, Rs. 0 in Sri Lanka'
+coverAlt: 'Free .tech domain for one year'
 ---
 
 This site runs on a domain I didn't pay for. The Hacktoberfest developer perk gives you a **.tech domain free for one year**, and it works from Sri Lanka with a normal Gmail account. Here's exactly how I did it - including the two settings that trip most people up.
@@ -70,4 +70,4 @@ This blog is hosted on **Azure Static Web Apps** (free tier, free SSL). I'll wri
 
 ---
 
-Got stuck on a step? Leave a comment on the YouTube video and I'll help you out.
+Got stuck on a step? Leave a comment on [the YouTube video](https://www.youtube.com/@thisararupsinghe) and I'll help you out.

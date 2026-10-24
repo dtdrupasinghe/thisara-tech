@@ -5,6 +5,11 @@ export const SITE_DESCRIPTION =
   'Practical write-ups on Azure, cloud cost (FinOps), DevOps and free tools for students and engineers in Sri Lanka.';
 export const AUTHOR = 'Thisara Rupasinghe';
 
+// Social previews (Open Graph). Pages without their own image, like posts without a cover, use OG_IMAGE.
+export const OG_SITE_NAME = 'thisara.tech';
+export const OG_IMAGE = '/images/og-default.jpg';
+export const OG_IMAGE_ALT = 'Thisara Rupasinghe: Azure, FinOps and free tools';
+
 // Default image for the home hero and for posts without their own cover.
 export const DEFAULT_COVER = '/images/hero-network.jpg';
 

@@ -2,19 +2,24 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { OG_IMAGE, OG_IMAGE_ALT, OG_SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 interface Props {
   title?: string;
   description?: string;
   type?: 'website' | 'article';
-  /** Social preview image, e.g. a post cover ('/images/x.jpg'). */
+  /** Social preview image, e.g. a post cover ('/images/x.jpg'). Defaults to OG_IMAGE. */
   image?: string;
+  imageAlt?: string;
+  /** og:title when it should differ from the page title (used on the home page). */
+  ogTitle?: string;
 }
 
-const { title, description = SITE_DESCRIPTION, type = 'website', image } = Astro.props;
+const { title, description = SITE_DESCRIPTION, type = 'website', image, imageAlt, ogTitle } = Astro.props;
 const pageTitle = title ? `${title} · ${SITE_TITLE}` : `${SITE_TITLE} - ${SITE_DESCRIPTION}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image ?? OG_IMAGE, Astro.site);
+const ogImageAlt = image ? imageAlt : OG_IMAGE_ALT;
 ---
 
 <!doctype html>
@@ -30,11 +35,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <meta property="og:type" content={type} />
-    <meta property="og:title" content={title ?? SITE_TITLE} />
+    <meta property="og:site_name" content={OG_SITE_NAME} />
+    <meta property="og:title" content={ogTitle ?? title ?? SITE_TITLE} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    {image && <meta property="og:image" content={new URL(image, Astro.site)} />}
-    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    <meta property="og:image" content={ogImage} />
+    {ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
+    <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

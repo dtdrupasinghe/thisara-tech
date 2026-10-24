@@ -14,11 +14,11 @@ const { title, description, pubDate, updatedDate, tags, cover, coverAlt } = post
 const { Content } = await render(post);
 ---
 
-<Base title={title} description={description} type="article" image={cover}>
+<Base title={title} description={description} type="article" image={cover} imageAlt={coverAlt}>
   <header class="post-hero">
     <img class="hero-bg" src={DEFAULT_COVER} alt="" />
     <div class="hero-shade" aria-hidden="true"></div>
-    <div class="narrow post-hero-inner">
+    <div class:list={['narrow post-hero-inner', { 'has-cover': cover }]}>
       <div class="meta">
         <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
         <span aria-hidden="true">·</span>
@@ -37,15 +37,15 @@ const { Content } = await render(post);
           {tags.map((t) => <li><a class="tag" href={`/tags/${t}/`}>#{t}</a></li>)}
         </ul>
       )}
+      {cover && (
+        <figure class="post-cover">
+          <img src={cover} alt={coverAlt ?? ''} width="1600" height="900" fetchpriority="high" />
+        </figure>
+      )}
     </div>
   </header>
 
   <article class="narrow post-body">
-    {cover && (
-      <figure class="post-cover">
-        <img src={cover} alt={coverAlt ?? ''} width="1600" height="900" fetchpriority="high" />
-      </figure>
-    )}
     <div class="prose">
       <Content />
     </div>
