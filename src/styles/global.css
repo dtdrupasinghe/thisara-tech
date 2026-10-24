@@ -185,9 +185,17 @@ img { max-width: 100%; height: auto; }
 }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 
+/* eased stops so the fade has no visible starting edge, even against the white light-mode page */
 .hero-fade {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 160px; z-index: 1; pointer-events: none;
-  background: linear-gradient(to bottom, transparent, var(--bg));
+  position: absolute; left: 0; right: 0; bottom: 0; height: 300px; z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    color-mix(in srgb, var(--bg) 4%, transparent) 18%,
+    color-mix(in srgb, var(--bg) 14%, transparent) 34%,
+    color-mix(in srgb, var(--bg) 32%, transparent) 50%,
+    color-mix(in srgb, var(--bg) 56%, transparent) 66%,
+    color-mix(in srgb, var(--bg) 82%, transparent) 82%,
+    var(--bg) 100%);
 }
 .hero-portrait { position: relative; justify-self: center; width: min(100%, 520px); margin-top: 32px; }
 .portrait-glow {
@@ -205,8 +213,8 @@ img { max-width: 100%; height: auto; }
 .portrait-img {
   position: relative; display: block; width: 100%; height: auto; border-radius: 0;
   filter: contrast(1.04) saturate(1.06) drop-shadow(0 24px 40px rgba(0, 0, 0, 0.5));
-  -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 70%, transparent 100%);
 }
 
 /* faded copies of the photo, peeking out on both sides like a shadow */
